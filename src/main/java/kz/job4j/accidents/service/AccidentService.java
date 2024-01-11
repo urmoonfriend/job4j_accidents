@@ -1,6 +1,7 @@
 package kz.job4j.accidents.service;
 
 import kz.job4j.accidents.model.Accident;
+import kz.job4j.accidents.model.AccidentType;
 import kz.job4j.accidents.repository.AccidentMem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,11 @@ public class AccidentService {
     private final AccidentMem accidentMem;
 
     public List<Accident> getAll() {
-        return accidentMem.getAll();
+        return accidentMem.getAllAccidents();
+    }
+
+    public List<AccidentType> getTypes() {
+        return accidentMem.getAccidentTypes();
     }
 
     public void create(Accident accident) {

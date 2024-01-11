@@ -1,11 +1,11 @@
 package kz.job4j.accidents.controller;
 
+import kz.job4j.accidents.model.Accident;
+import kz.job4j.accidents.service.AccidentService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import kz.job4j.accidents.model.Accident;
-import kz.job4j.accidents.service.AccidentService;
 
 @Controller
 @AllArgsConstructor
@@ -20,7 +20,8 @@ public class AccidentController {
     }
 
     @GetMapping("/create")
-    public String viewCreateAccident() {
+    public String viewCreateAccident(Model model) {
+        model.addAttribute("types", accidents.getTypes());
         return "/accidents/create";
     }
 
@@ -31,6 +32,7 @@ public class AccidentController {
             model.addAttribute("message", "Инцидент с указанным идентификатором не найден");
             return "errors/404";
         }
+        model.addAttribute("types", accidents.getTypes());
         model.addAttribute("accident", accidentOptional.get());
         return "/accidents/edit";
     }
