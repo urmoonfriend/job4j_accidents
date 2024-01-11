@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,4 +17,15 @@ public class AccidentService {
         return accidentMem.getAll();
     }
 
+    public void create(Accident accident) {
+        accidentMem.save(accident);
+    }
+
+    public void update(Accident accident) {
+        accidentMem.update(accident);
+    }
+
+    public Optional<Accident> getById(Integer id) {
+        return accidentMem.findById(id);
+    }
 }

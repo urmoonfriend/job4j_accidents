@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
     private final AccidentService accidentService;
 
-    @GetMapping("/")
+    @GetMapping
     public String getDefault(Model model) {
         model.addAttribute("accidents", accidentService.getAll());
         return "index";
