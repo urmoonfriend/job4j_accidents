@@ -13,6 +13,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AccidentService {
+
     private final AccidentMem accidentMem;
     private final AccidentTypeService accidentTypeService;
     private final RuleService ruleService;
