@@ -2,6 +2,8 @@ package kz.job4j.accidents.repository;
 
 import kz.job4j.accidents.model.Accident;
 import kz.job4j.accidents.model.AccidentType;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -13,76 +15,56 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class AccidentMem {
-    private static final Map<Integer, Accident> ACCIDENTS = new ConcurrentHashMap<>();
-    private static final Map<Integer, AccidentType> ACCIDENT_TYPES = new ConcurrentHashMap<>();
-    private static final AtomicInteger NEXT_ACCIDENT_ID = new AtomicInteger(0);
+    private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
+    private final AtomicInteger nextId = new AtomicInteger(1);
 
-    private static final AtomicInteger NEXT_TYPE_ID = new AtomicInteger(0);
-
-    static {
-        AccidentType type1 = new AccidentType()
-                .setId(NEXT_TYPE_ID.incrementAndGet())
-                .setName("Две машины");
-        AccidentType type2 = new AccidentType()
-                .setId(NEXT_TYPE_ID.incrementAndGet())
-                .setName("Машина и человек");
-        AccidentType type3 = new AccidentType()
-                .setId(NEXT_TYPE_ID.incrementAndGet())
-                .setName("Машина и велосипед");
-        ACCIDENT_TYPES.put(type1.getId(), type1);
-        ACCIDENT_TYPES.put(type2.getId(), type2);
-        ACCIDENT_TYPES.put(type3.getId(), type3);
-
+    private AccidentMem() {
         Accident accident1 = new Accident()
-                .setId(NEXT_ACCIDENT_ID.incrementAndGet())
+                .setId(nextId.incrementAndGet())
                 .setName("Авария 1")
                 .setAddress("Абая / Момышулы")
                 .setText("Авария на улице Абая / Момышулы в 19:05")
-                .setType(type1);
+                .setType(new AccidentType().setId(1).setName("Две машины"));
         Accident accident2 = new Accident()
-                .setId(NEXT_ACCIDENT_ID.incrementAndGet())
+                .setId(nextId.incrementAndGet())
                 .setName("Авария 2")
                 .setAddress("Толе би / Саина")
                 .setText("Авария на улице Толе би / Саина в 18:36")
-                .setType(type2);
-        Accident accident3 =  new Accident()
-                .setId(NEXT_ACCIDENT_ID.incrementAndGet())
+                .setType(new AccidentType().setId(2).setName("Машина и человек"));
+        Accident accident3 = new Accident()
+                .setId(nextId.incrementAndGet())
                 .setName("Авария 3")
                 .setAddress("Сатпаева / Достык")
                 .setText("Авария на улице Сатпаева / Достык в 09:23")
-                .setType(type3);
-        ACCIDENTS.put(accident1.getId(), accident1);
-        ACCIDENTS.put(accident2.getId(), accident2);
-        ACCIDENTS.put(accident3.getId(), accident3);
+                .setType(new AccidentType().setId(3).setName("Машина и велосипед"));
+
+        accidents.put(accident1.getId(), accident1);
+        accidents.put(accident2.getId(), accident2);
+        accidents.put(accident3.getId(), accident3);
     }
 
     public List<Accident> getAllAccidents() {
-        return new ArrayList<>(ACCIDENTS.values());
-    }
-
-    public List<AccidentType> getAccidentTypes() {
-        return new ArrayList<>(ACCIDENT_TYPES.values());
+        return new ArrayList<>(accidents.values());
     }
 
     public Accident save(Accident accident) {
-        accident.setId(NEXT_ACCIDENT_ID.incrementAndGet());
-        accident.setType(ACCIDENT_TYPES.get(accident.getType().getId()));
-        ACCIDENTS.put(accident.getId(), accident);
+        accident.setId(nextId.incrementAndGet());
+        accidents.put(accident.getId(), accident);
         return accident;
     }
 
     public boolean update(Accident accident) {
-        return ACCIDENTS.computeIfPresent(
+        return accidents.computeIfPresent(
                 accident.getId(), (id, accidentToUpdate) ->
                         new Accident()
                                 .setId(accidentToUpdate.getId())
                                 .setName(accident.getName())
                                 .setText(accident.getText())
                                 .setAddress(accident.getAddress())
-                                .setType(ACCIDENT_TYPES.get(accident.getType().getId()))) != null;
+                                .setType(accident.getType())) != null;
     }
 
     public Optional<Accident> findById(Integer id) {
-        return Optional.ofNullable(ACCIDENTS.get(id));
+        return Optional.ofNullable(accidents.get(id));
     }
 }
