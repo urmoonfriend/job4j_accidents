@@ -5,13 +5,14 @@ import kz.job4j.accidents.model.AccidentType;
 import kz.job4j.accidents.model.Rule;
 import kz.job4j.accidents.repository.AccidentMem;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AccidentService {
 
     private final AccidentMem accidentMem;
@@ -42,5 +43,24 @@ public class AccidentService {
 
     public Optional<Accident> getById(Integer id) {
         return accidentMem.findById(id);
+    }
+
+    public void create(Accident accident, String[] ids) {
+        log.info("create method request: accident = [{}], ids = [{}]", accident, ids);
+        Set<Rule> rules = new HashSet<>();
+        Arrays.stream(ids).forEach(
+                id -> ruleService.findById(Integer.valueOf(id)).ifPresent(rules::add)
+        );
+        accident.setRules(rules);
+        create(accident);
+    }
+
+    public void update(Accident accident, String[] ids) {
+        Set<Rule> rules = new HashSet<>();
+        Arrays.stream(ids).forEach(
+                id -> ruleService.findById(Integer.valueOf(id)).ifPresent(rules::add)
+        );
+        accident.setRules(rules);
+        update(accident);
     }
 }

@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class RuleMem {
     private final Map<Integer, Rule> rules = new ConcurrentHashMap<>();
-    private final AtomicInteger nextId = new AtomicInteger(1);
+    private final AtomicInteger nextId = new AtomicInteger(0);
 
     private RuleMem() {
         Rule rule1 = new Rule()

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @AllArgsConstructor
 @RequestMapping("/accidents")
@@ -22,6 +24,7 @@ public class AccidentController {
     @GetMapping("/create")
     public String viewCreateAccident(Model model) {
         model.addAttribute("types", accidents.getTypes());
+        model.addAttribute("rules", accidents.getRules());
         return "/accidents/create";
     }
 
@@ -33,19 +36,22 @@ public class AccidentController {
             return "errors/404";
         }
         model.addAttribute("types", accidents.getTypes());
+        model.addAttribute("rules", accidents.getRules());
         model.addAttribute("accident", accidentOptional.get());
         return "/accidents/edit";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute Accident accident) {
-        accidents.create(accident);
+    public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
+        String[] ids = req.getParameterValues("rIds");
+        accidents.create(accident, ids);
         return "redirect:/";
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute Accident accident) {
-        accidents.update(accident);
+    public String update(@ModelAttribute Accident accident, HttpServletRequest req) {
+        String[] ids = req.getParameterValues("rIds");
+        accidents.update(accident, ids);
         return "redirect:/";
     }
 }

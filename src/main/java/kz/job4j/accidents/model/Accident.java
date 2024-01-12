@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.Set;
+
 @Data
 @Accessors(chain = true)
 @AllArgsConstructor
@@ -15,6 +17,7 @@ public class Accident {
     @EqualsAndHashCode.Include
     private int id;
     private AccidentType type;
+    private Set<Rule> rules;
     private String name;
     private String text;
     private String address;
