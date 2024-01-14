@@ -3,10 +3,7 @@ package kz.job4j.accidents.repository;
 import kz.job4j.accidents.model.Rule;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -50,5 +47,13 @@ public class RuleMem {
 
     public Optional<Rule> findById(Integer id) {
         return Optional.ofNullable(rules.get(id));
+    }
+
+    public Set<Rule> getRulesByIds(String[] ids) {
+        Set<Rule> rules = new HashSet<>();
+        Arrays.stream(ids).forEach(
+                id -> findById(Integer.valueOf(id)).ifPresent(rules::add)
+        );
+        return rules;
     }
 }

@@ -47,20 +47,12 @@ public class AccidentService {
 
     public void create(Accident accident, String[] ids) {
         log.info("create method request: accident = [{}], ids = [{}]", accident, ids);
-        Set<Rule> rules = new HashSet<>();
-        Arrays.stream(ids).forEach(
-                id -> ruleService.findById(Integer.valueOf(id)).ifPresent(rules::add)
-        );
-        accident.setRules(rules);
+        accident.setRules(ruleService.getRulesByIds(ids));
         create(accident);
     }
 
     public void update(Accident accident, String[] ids) {
-        Set<Rule> rules = new HashSet<>();
-        Arrays.stream(ids).forEach(
-                id -> ruleService.findById(Integer.valueOf(id)).ifPresent(rules::add)
-        );
-        accident.setRules(rules);
+        accident.setRules(ruleService.getRulesByIds(ids));
         update(accident);
     }
 }
