@@ -3,9 +3,10 @@ package kz.job4j.accidents.service;
 import kz.job4j.accidents.model.Accident;
 import kz.job4j.accidents.model.AccidentType;
 import kz.job4j.accidents.model.Rule;
-import kz.job4j.accidents.repository.AccidentMem;
+import kz.job4j.accidents.repository.AccidentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -15,12 +16,13 @@ import java.util.*;
 @Slf4j
 public class AccidentService {
 
-    private final AccidentMem accidentMem;
+    @Qualifier("accidentHibernate")
+    private final AccidentRepository accidentRepository;
     private final AccidentTypeService accidentTypeService;
     private final RuleService ruleService;
 
     public List<Accident> getAll() {
-        return accidentMem.getAllAccidents();
+        return accidentRepository.getAllAccidents();
     }
 
     public List<AccidentType> getTypes() {
@@ -33,16 +35,16 @@ public class AccidentService {
 
     public void create(Accident accident) {
         accidentTypeService.findById(accident.getType().getId()).ifPresent(accident::setType);
-        accidentMem.save(accident);
+        accidentRepository.save(accident);
     }
 
     public void update(Accident accident) {
         accidentTypeService.findById(accident.getType().getId()).ifPresent(accident::setType);
-        accidentMem.update(accident);
+        accidentRepository.update(accident);
     }
 
     public Optional<Accident> getById(Integer id) {
-        return accidentMem.findById(id);
+        return accidentRepository.findById(id);
     }
 
     public void create(Accident accident, String[] ids) {

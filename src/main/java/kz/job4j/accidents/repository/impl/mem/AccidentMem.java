@@ -1,16 +1,17 @@
-package kz.job4j.accidents.repository;
+package kz.job4j.accidents.repository.impl.mem;
 
 import kz.job4j.accidents.model.Accident;
 import kz.job4j.accidents.model.AccidentType;
 import kz.job4j.accidents.model.Rule;
+import kz.job4j.accidents.repository.AccidentRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
-public class AccidentMem {
+@Repository("mem")
+public class AccidentMem implements AccidentRepository {
     private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
     private final AtomicInteger nextId = new AtomicInteger(0);
 
@@ -46,16 +47,19 @@ public class AccidentMem {
         accidents.put(accident3.getId(), accident3);
     }
 
+    @Override
     public List<Accident> getAllAccidents() {
         return new ArrayList<>(accidents.values());
     }
 
+    @Override
     public Accident save(Accident accident) {
         accident.setId(nextId.incrementAndGet());
         accidents.put(accident.getId(), accident);
         return accident;
     }
 
+    @Override
     public boolean update(Accident accident) {
         return accidents.computeIfPresent(
                 accident.getId(), (id, accidentToUpdate) ->
@@ -68,6 +72,7 @@ public class AccidentMem {
                                 .setRules(accident.getRules())) != null;
     }
 
+    @Override
     public Optional<Accident> findById(Integer id) {
         return Optional.ofNullable(accidents.get(id));
     }

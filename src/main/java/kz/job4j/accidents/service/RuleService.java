@@ -1,8 +1,9 @@
 package kz.job4j.accidents.service;
 
 import kz.job4j.accidents.model.Rule;
-import kz.job4j.accidents.repository.RuleMem;
+import kz.job4j.accidents.repository.RuleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -10,17 +11,18 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class RuleService {
-    private final RuleMem ruleMem;
+    @Qualifier("ruleHibernate")
+    private final RuleRepository ruleRepository;
 
     public List<Rule> getRules() {
-        return ruleMem.getRules();
+        return ruleRepository.getRules();
     }
 
     public Optional<Rule> findById(Integer id) {
-        return ruleMem.findById(id);
+        return ruleRepository.findById(id);
     }
 
     public Set<Rule> getRulesByIds(String[] ids) {
-        return ruleMem.getRulesByIds(ids);
+        return ruleRepository.getRulesByIds(ids);
     }
 }

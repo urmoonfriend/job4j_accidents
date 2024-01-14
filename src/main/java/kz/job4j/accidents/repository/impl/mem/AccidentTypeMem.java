@@ -1,6 +1,7 @@
-package kz.job4j.accidents.repository;
+package kz.job4j.accidents.repository.impl.mem;
 
 import kz.job4j.accidents.model.AccidentType;
+import kz.job4j.accidents.repository.AccidentTypeRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -10,8 +11,8 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
-public class AccidentTypeMem {
+@Repository("typeMem")
+public class AccidentTypeMem implements AccidentTypeRepository {
     private final Map<Integer, AccidentType> types = new ConcurrentHashMap<>();
     private final AtomicInteger nextId = new AtomicInteger(0);
 
@@ -30,16 +31,19 @@ public class AccidentTypeMem {
         types.put(type3.getId(), type3);
     }
 
+    @Override
     public List<AccidentType> getAccidentTypes() {
         return new ArrayList<>(types.values());
     }
 
+    @Override
     public AccidentType save(AccidentType type) {
         type.setId(nextId.incrementAndGet());
         types.put(type.getId(), type);
         return type;
     }
 
+    @Override
     public boolean update(AccidentType type) {
         return types.computeIfPresent(
                 type.getId(), (id, typeToUpdate) ->
@@ -48,6 +52,7 @@ public class AccidentTypeMem {
                                 .setName(type.getName())) != null;
     }
 
+    @Override
     public Optional<AccidentType> findById(Integer id) {
         return Optional.ofNullable(types.get(id));
     }

@@ -27,7 +27,7 @@
 				<liquibase.config>db/changelog/liquibase_test.properties</liquibase.config>
 			</properties>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 		</profile>
 		<profile>
@@ -36,7 +36,7 @@
 				<liquibase.config>db/changelog/liquibase.properties</liquibase.config>
 			</properties>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
 	</profiles>
@@ -92,6 +92,16 @@
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>2.4.3</version> <!-- Replace with the latest version -->
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>5.3.23</version>
 		</dependency>
 	</dependencies>
 
