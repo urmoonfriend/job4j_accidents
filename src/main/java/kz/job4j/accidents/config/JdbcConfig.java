@@ -15,9 +15,9 @@ import javax.sql.DataSource;
 public class JdbcConfig {
 
     @Bean
-    public DataSource ds(@Value("${jdbc.driver}") String driver,
-                         @Value("${jdbc.url}") String url,
-                         @Value("${jdbc.username}") String username,
+    public DataSource ds(@Value("${datasource.driver}") String driver,
+                         @Value("${datasource.url}") String url,
+                         @Value("${datasource.username}") String username,
                          @Value("${jdbc.password}") String password) {
         BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName(driver);
