@@ -13,7 +13,6 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Repository("typeHibernate")
-@Primary
 @RequiredArgsConstructor
 public class AccidentTypeHibernate implements AccidentTypeRepository {
 

@@ -16,13 +16,20 @@ import java.util.*;
 @Slf4j
 public class AccidentService {
 
-    @Qualifier("accidentHibernate")
+    @Qualifier("accidentJdbc")
     private final AccidentRepository accidentRepository;
     private final AccidentTypeService accidentTypeService;
     private final RuleService ruleService;
 
     public List<Accident> getAll() {
-        return accidentRepository.getAllAccidents();
+        List<Accident> accidents = accidentRepository.getAllAccidents();
+        accidents.forEach(
+                accident -> {
+                    accidentTypeService.findById(accident.getType().getId()).ifPresent(accident::setType);
+                    accident.setRules(new HashSet<>(ruleService.getRulesByIds(accident.getRules())));
+                }
+        );
+        return accidents;
     }
 
     public List<AccidentType> getTypes() {
@@ -44,7 +51,14 @@ public class AccidentService {
     }
 
     public Optional<Accident> getById(Integer id) {
-        return accidentRepository.findById(id);
+        var accidentOpt = accidentRepository.findById(id);
+        if (accidentOpt.isPresent()) {
+            var accident = accidentOpt.get();
+            accidentTypeService.findById(accident.getType().getId()).ifPresent(accident::setType);
+            accident.setRules(new HashSet<>(ruleService.getRulesByIds(accident.getRules())));
+            return Optional.of(accident);
+        }
+        return Optional.empty();
     }
 
     public void create(Accident accident, String[] ids) {

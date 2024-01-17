@@ -13,7 +13,7 @@ public class RuleMem implements RuleRepository {
     private final Map<Integer, Rule> rules = new ConcurrentHashMap<>();
     private final AtomicInteger nextId = new AtomicInteger(0);
 
-    private RuleMem() {
+    public RuleMem() {
         Rule rule1 = new Rule()
                 .setId(nextId.incrementAndGet())
                 .setName("Статья. 1");
@@ -59,6 +59,15 @@ public class RuleMem implements RuleRepository {
         Set<Rule> rules = new HashSet<>();
         Arrays.stream(ids).forEach(
                 id -> findById(Integer.valueOf(id)).ifPresent(rules::add)
+        );
+        return rules;
+    }
+
+    @Override
+    public Set<Rule> getRulesByIds(Set<Rule> ruleSet) {
+        Set<Rule> rules = new HashSet<>();
+        ruleSet.forEach(
+                rule -> findById(rule.getId()).ifPresent(rules::add)
         );
         return rules;
     }

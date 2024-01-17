@@ -4,7 +4,6 @@ import kz.job4j.accidents.model.Accident;
 import kz.job4j.accidents.repository.AccidentRepository;
 import kz.job4j.accidents.repository.CrudRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Repository("accidentHibernate")
-@Primary
 @RequiredArgsConstructor
 public class AccidentHibernate implements AccidentRepository {
 

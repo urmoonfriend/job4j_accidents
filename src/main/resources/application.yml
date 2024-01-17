@@ -10,6 +10,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  liquibase:
+    change-log: classpath:/db/changelog/dbchangelog.xml
   mandatory-file-encoding: UTF-8
   http:
     encoding:

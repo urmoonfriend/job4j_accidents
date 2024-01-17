@@ -16,7 +16,7 @@ public class AccidentTypeMem implements AccidentTypeRepository {
     private final Map<Integer, AccidentType> types = new ConcurrentHashMap<>();
     private final AtomicInteger nextId = new AtomicInteger(0);
 
-    private AccidentTypeMem() {
+    public AccidentTypeMem() {
         AccidentType type1 = new AccidentType()
                 .setId(nextId.incrementAndGet())
                 .setName("Две машины");

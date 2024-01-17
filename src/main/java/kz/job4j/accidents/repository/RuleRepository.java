@@ -16,4 +16,6 @@ public interface RuleRepository {
     Optional<Rule> findById(Integer id);
 
     Set<Rule> getRulesByIds(String[] ids);
+
+    Set<Rule> getRulesByIds(Set<Rule> rules);
 }

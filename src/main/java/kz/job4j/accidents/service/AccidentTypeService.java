@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AccidentTypeService {
-    @Qualifier("typeHibernate")
+    @Qualifier("typeJdbc")
     private final AccidentTypeRepository accidentTypeMem;
 
     public List<AccidentType> getTypes() {

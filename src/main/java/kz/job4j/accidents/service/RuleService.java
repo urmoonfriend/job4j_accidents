@@ -11,7 +11,7 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class RuleService {
-    @Qualifier("ruleHibernate")
+    @Qualifier("ruleJdbc")
     private final RuleRepository ruleRepository;
 
     public List<Rule> getRules() {
@@ -24,5 +24,9 @@ public class RuleService {
 
     public Set<Rule> getRulesByIds(String[] ids) {
         return ruleRepository.getRulesByIds(ids);
+    }
+
+    public Set<Rule> getRulesByIds(Set<Rule> rules) {
+        return ruleRepository.getRulesByIds(rules);
     }
 }

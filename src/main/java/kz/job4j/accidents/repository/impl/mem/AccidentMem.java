@@ -15,7 +15,7 @@ public class AccidentMem implements AccidentRepository {
     private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
     private final AtomicInteger nextId = new AtomicInteger(0);
 
-    private AccidentMem() {
+    public AccidentMem() {
         Rule rule1 = new Rule().setId(1).setName("Статья. 1");
         Rule rule2 = new Rule().setId(2).setName("Статья. 2");
         Rule rule3 = new Rule().setId(3).setName("Статья. 3");
