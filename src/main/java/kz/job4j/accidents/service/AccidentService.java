@@ -16,7 +16,7 @@ import java.util.*;
 @Slf4j
 public class AccidentService {
 
-    @Qualifier("accidentJdbc")
+    @Qualifier("accidentHibernate")
     private final AccidentRepository accidentRepository;
     private final AccidentTypeService accidentTypeService;
     private final RuleService ruleService;

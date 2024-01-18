@@ -11,7 +11,7 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class RuleService {
-    @Qualifier("ruleJdbc")
+    @Qualifier("ruleHibernate")
     private final RuleRepository ruleRepository;
 
     public List<Rule> getRules() {
