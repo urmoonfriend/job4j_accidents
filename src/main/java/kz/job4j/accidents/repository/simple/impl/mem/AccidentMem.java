@@ -1,9 +1,9 @@
-package kz.job4j.accidents.repository.impl.mem;
+package kz.job4j.accidents.repository.simple.impl.mem;
 
 import kz.job4j.accidents.model.Accident;
 import kz.job4j.accidents.model.AccidentType;
 import kz.job4j.accidents.model.Rule;
-import kz.job4j.accidents.repository.AccidentRepository;
+import kz.job4j.accidents.repository.simple.AccidentRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;

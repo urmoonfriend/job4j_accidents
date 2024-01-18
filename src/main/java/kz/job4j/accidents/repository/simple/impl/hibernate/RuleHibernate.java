@@ -1,8 +1,8 @@
-package kz.job4j.accidents.repository.impl.hibernate;
+package kz.job4j.accidents.repository.simple.impl.hibernate;
 
 import kz.job4j.accidents.model.Rule;
-import kz.job4j.accidents.repository.CrudRepository;
-import kz.job4j.accidents.repository.RuleRepository;
+import kz.job4j.accidents.repository.simple.CrudRepository;
+import kz.job4j.accidents.repository.simple.RuleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @Repository("ruleHibernate")
 @RequiredArgsConstructor
+@Primary
 public class RuleHibernate implements RuleRepository {
 
     private final CrudRepository crudRepository;

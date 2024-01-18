@@ -3,72 +3,24 @@ package kz.job4j.accidents.service;
 import kz.job4j.accidents.model.Accident;
 import kz.job4j.accidents.model.AccidentType;
 import kz.job4j.accidents.model.Rule;
-import kz.job4j.accidents.repository.AccidentRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
-@Service
-@RequiredArgsConstructor
-@Slf4j
-public class AccidentService {
+public interface AccidentService {
+    List<Accident> getAll();
 
-    @Qualifier("accidentHibernate")
-    private final AccidentRepository accidentRepository;
-    private final AccidentTypeService accidentTypeService;
-    private final RuleService ruleService;
+    List<AccidentType> getTypes();
 
-    public List<Accident> getAll() {
-        List<Accident> accidents = accidentRepository.getAllAccidents();
-        accidents.forEach(
-                accident -> {
-                    accidentTypeService.findById(accident.getType().getId()).ifPresent(accident::setType);
-                    accident.setRules(new HashSet<>(ruleService.getRulesByIds(accident.getRules())));
-                }
-        );
-        return accidents;
-    }
+    List<Rule> getRules();
 
-    public List<AccidentType> getTypes() {
-        return accidentTypeService.getTypes();
-    }
+    void create(Accident accident);
 
-    public List<Rule> getRules() {
-        return ruleService.getRules();
-    }
+    void update(Accident accident);
 
-    public void create(Accident accident) {
-        accidentTypeService.findById(accident.getType().getId()).ifPresent(accident::setType);
-        accidentRepository.save(accident);
-    }
+    Optional<Accident> getById(Integer id);
 
-    public void update(Accident accident) {
-        accidentTypeService.findById(accident.getType().getId()).ifPresent(accident::setType);
-        accidentRepository.update(accident);
-    }
+    void create(Accident accident, String[] ids);
 
-    public Optional<Accident> getById(Integer id) {
-        var accidentOpt = accidentRepository.findById(id);
-        if (accidentOpt.isPresent()) {
-            var accident = accidentOpt.get();
-            accidentTypeService.findById(accident.getType().getId()).ifPresent(accident::setType);
-            accident.setRules(new HashSet<>(ruleService.getRulesByIds(accident.getRules())));
-            return Optional.of(accident);
-        }
-        return Optional.empty();
-    }
-
-    public void create(Accident accident, String[] ids) {
-        log.info("create method request: accident = [{}], ids = [{}]", accident, ids);
-        accident.setRules(ruleService.getRulesByIds(ids));
-        create(accident);
-    }
-
-    public void update(Accident accident, String[] ids) {
-        accident.setRules(ruleService.getRulesByIds(ids));
-        update(accident);
-    }
+    void update(Accident accident, String[] ids);
 }

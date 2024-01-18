@@ -1,7 +1,7 @@
-package kz.job4j.accidents.repository.impl.mem;
+package kz.job4j.accidents.repository.simple.impl.mem;
 
 import kz.job4j.accidents.model.AccidentType;
-import kz.job4j.accidents.repository.AccidentTypeRepository;
+import kz.job4j.accidents.repository.simple.AccidentTypeRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

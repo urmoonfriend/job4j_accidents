@@ -1,25 +1,21 @@
-package kz.job4j.accidents.repository.impl.jdbc;
+package kz.job4j.accidents.repository.simple.impl.jdbc;
 
 import kz.job4j.accidents.mapper.AccidentMapper;
 import kz.job4j.accidents.model.Accident;
 import kz.job4j.accidents.model.Rule;
-import kz.job4j.accidents.repository.AccidentRepository;
+import kz.job4j.accidents.repository.simple.AccidentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
 @Repository("accidentJdbc")
-@Primary
 @RequiredArgsConstructor
 public class AccidentJdbc implements AccidentRepository {
     private final JdbcTemplate jdbc;

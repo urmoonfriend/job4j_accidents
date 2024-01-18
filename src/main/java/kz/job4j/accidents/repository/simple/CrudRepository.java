@@ -1,4 +1,4 @@
-package kz.job4j.accidents.repository;
+package kz.job4j.accidents.repository.simple;
 
 import org.hibernate.Session;
 import org.hibernate.criterion.SimpleExpression;

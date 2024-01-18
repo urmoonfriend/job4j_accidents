@@ -1,4 +1,4 @@
-package kz.job4j.accidents.repository;
+package kz.job4j.accidents.repository.simple;
 
 import kz.job4j.accidents.model.Accident;
 

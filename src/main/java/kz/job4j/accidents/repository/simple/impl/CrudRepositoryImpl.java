@@ -1,5 +1,6 @@
-package kz.job4j.accidents.repository.impl;
+package kz.job4j.accidents.repository.simple.impl;
 
+import kz.job4j.accidents.repository.simple.CrudRepository;
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,7 +16,7 @@ import java.util.function.Function;
 
 @Component
 @AllArgsConstructor
-public class CrudRepositoryImpl implements kz.job4j.accidents.repository.CrudRepository {
+public class CrudRepositoryImpl implements CrudRepository {
     private final SessionFactory sf;
 
     @Override

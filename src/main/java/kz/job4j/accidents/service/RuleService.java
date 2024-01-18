@@ -1,32 +1,17 @@
 package kz.job4j.accidents.service;
 
 import kz.job4j.accidents.model.Rule;
-import kz.job4j.accidents.repository.RuleRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
-@Service
-@RequiredArgsConstructor
-public class RuleService {
-    @Qualifier("ruleHibernate")
-    private final RuleRepository ruleRepository;
+public interface RuleService {
+    List<Rule> getRules();
 
-    public List<Rule> getRules() {
-        return ruleRepository.getRules();
-    }
+    Optional<Rule> findById(Integer id);
 
-    public Optional<Rule> findById(Integer id) {
-        return ruleRepository.findById(id);
-    }
+    Set<Rule> getRulesByIds(String[] ids);
 
-    public Set<Rule> getRulesByIds(String[] ids) {
-        return ruleRepository.getRulesByIds(ids);
-    }
-
-    public Set<Rule> getRulesByIds(Set<Rule> rules) {
-        return ruleRepository.getRulesByIds(rules);
-    }
+    Set<Rule> getRulesByIds(Set<Rule> rules);
 }

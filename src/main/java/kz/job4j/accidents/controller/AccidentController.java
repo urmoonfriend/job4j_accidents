@@ -2,6 +2,7 @@ package kz.job4j.accidents.controller;
 
 import kz.job4j.accidents.model.Accident;
 import kz.job4j.accidents.service.AccidentService;
+import kz.job4j.accidents.service.impl.simple.AccidentServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

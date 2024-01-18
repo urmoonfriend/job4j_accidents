@@ -1,8 +1,8 @@
-package kz.job4j.accidents.repository.impl.hibernate;
+package kz.job4j.accidents.repository.simple.impl.hibernate;
 
 import kz.job4j.accidents.model.AccidentType;
-import kz.job4j.accidents.repository.AccidentTypeRepository;
-import kz.job4j.accidents.repository.CrudRepository;
+import kz.job4j.accidents.repository.simple.AccidentTypeRepository;
+import kz.job4j.accidents.repository.simple.CrudRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
@@ -14,6 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @Repository("typeHibernate")
 @RequiredArgsConstructor
+@Primary
 public class AccidentTypeHibernate implements AccidentTypeRepository {
 
     private final CrudRepository crudRepository;
