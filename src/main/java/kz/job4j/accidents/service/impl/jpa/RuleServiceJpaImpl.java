@@ -2,11 +2,8 @@ package kz.job4j.accidents.service.impl.jpa;
 
 import kz.job4j.accidents.model.Rule;
 import kz.job4j.accidents.repository.jpa.RuleJpaRepository;
-import kz.job4j.accidents.repository.simple.RuleRepository;
 import kz.job4j.accidents.service.RuleService;
-import liquibase.repackaged.org.apache.commons.collections4.IterableUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +18,7 @@ public class RuleServiceJpaImpl implements RuleService {
 
     @Override
     public List<Rule> getRules() {
-        return IterableUtils.toList(ruleRepository.findAll());
+        return ruleRepository.findAll();
     }
 
     @Override
@@ -34,7 +31,7 @@ public class RuleServiceJpaImpl implements RuleService {
         List<Integer> integerList = Arrays.stream(ids)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
-        return new HashSet<>(IterableUtils.toList(ruleRepository.findAllById(integerList)));
+        return new HashSet<>(ruleRepository.findAllByIdIn(integerList));
     }
 
     @Override
@@ -42,6 +39,6 @@ public class RuleServiceJpaImpl implements RuleService {
         List<Integer> integerList = rules.stream()
                 .map(Rule::getId)
                 .collect(Collectors.toList());
-        return new HashSet<>(IterableUtils.toList(ruleRepository.findAllById(integerList)));
+        return new HashSet<>(ruleRepository.findAllByIdIn(integerList));
     }
 }

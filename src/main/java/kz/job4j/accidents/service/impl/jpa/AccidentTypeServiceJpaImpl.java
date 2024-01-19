@@ -19,7 +19,7 @@ public class AccidentTypeServiceJpaImpl implements AccidentTypeService {
 
     @Override
     public List<AccidentType> getTypes() {
-        return IterableUtils.toList(accidentTypeJpaRepository.findAll());
+        return accidentTypeJpaRepository.findAll();
     }
 
     @Override

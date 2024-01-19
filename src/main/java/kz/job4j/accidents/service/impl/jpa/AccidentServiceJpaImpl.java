@@ -31,7 +31,7 @@ public class AccidentServiceJpaImpl implements AccidentService {
     @Override
     public List<Accident> getAll() {
         log.info("jpa getAll");
-        return IterableUtils.toList(accidentRepository.findAll());
+        return accidentRepository.findAll();
     }
 
     @Override
