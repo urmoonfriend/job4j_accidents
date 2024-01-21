@@ -2,6 +2,7 @@ package kz.job4j.accidents.controller;
 
 import kz.job4j.accidents.service.impl.simple.AccidentServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ public class IndexController {
 
     @GetMapping
     public String getDefault(Model model) {
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         model.addAttribute("accidents", accidentService.getAll());
         return "index";
     }

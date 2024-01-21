@@ -16,6 +16,6 @@
         <mapping class="kz.job4j.accidents.model.Accident"/>
         <mapping class="kz.job4j.accidents.model.AccidentType"/>
         <mapping class="kz.job4j.accidents.model.Rule"/>
-
+        <mapping class="kz.job4j.accidents.model.User"/>
     </session-factory>
 </hibernate-configuration>
