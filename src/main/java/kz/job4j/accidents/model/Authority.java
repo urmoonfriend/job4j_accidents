@@ -7,23 +7,15 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "users")
 @Data
 @Accessors(chain = true)
-public class User {
+@Table(name = "authorities")
+public class Authority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
-    private String password;
-
-    private String username;
-
-    @ManyToOne
-    @JoinColumn(name = "authority_id")
-    private Authority authority;
-
-    private boolean enabled;
+    private String authority;
 
     @Override
     public boolean equals(Object o) {
@@ -33,8 +25,8 @@ public class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        User user = (User) o;
-        return id == user.id;
+        Authority authority = (Authority) o;
+        return id == authority.id;
     }
 
     @Override
