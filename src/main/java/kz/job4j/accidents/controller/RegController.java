@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -15,17 +16,21 @@ public class RegController {
     private final UserService userService;
 
     @PostMapping("/reg")
-    public String regSave(@ModelAttribute User user, Model model) {
-        if (userService.findByUsername(user.getUsername()).isPresent()) {
-            model.addAttribute("errorMessage", "Пользователь с таким именем уже существует");
-        } else {
-            userService.create(user);
+    public String regSave(@ModelAttribute User user) {
+        if (userService.create(user).isEmpty()) {
+            return "redirect:/reg?error=true";
         }
         return "redirect:/login";
     }
 
     @GetMapping("/reg")
-    public String regPage() {
-        return "users/reg";
+    public String regPage(@RequestParam(value = "error", required = false) String error,
+                          Model model) {
+        String errorMessage = null;
+        if (error != null) {
+            errorMessage = "Пользователь с таким именем уже существует";
+        }
+        model.addAttribute("errorMessage", errorMessage);
+        return "reg";
     }
 }

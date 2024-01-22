@@ -30,23 +30,34 @@ public class UserServiceJpaImpl implements UserService {
     }
 
     @Override
-    public void create(User user) {
+    public Optional<User> create(User user) {
+        Optional<User> result = Optional.empty();
         user.setEnabled(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setAuthority(authorityRepository.findByAuthority("ROLE_USER"));
-        userRepository.save(user);
+        try {
+            result = Optional.of(userRepository.save(user));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+        return result;
     }
 
     @Override
-    public void update(User user) {
-        userRepository.findById(user.getId()).ifPresent(
-                userToUpdate -> {
-                    user.setUsername(user.getUsername());
-                    user.setPassword(passwordEncoder.encode(user.getPassword()));
-                    user.setEnabled(true);
-                    user.setAuthority(authorityRepository.findByAuthority(user.getAuthority().getAuthority()));
-                    userRepository.save(userToUpdate);
-                }
-        );
+    public Optional<User> update(User user) {
+        Optional<User> result = Optional.empty();
+        try {
+            var userOpt = userRepository.findById(user.getId());
+            if (userOpt.isPresent()) {
+                User userToUpdate = userOpt.get();
+                userToUpdate.setUsername(user.getUsername());
+                userToUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
+                userToUpdate.setEnabled(true);
+                userToUpdate.setAuthority(authorityRepository.findByAuthority(user.getAuthority().getAuthority()));
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+        return result;
     }
 }

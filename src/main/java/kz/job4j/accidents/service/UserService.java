@@ -9,7 +9,7 @@ public interface UserService {
 
     Optional<User> findByUsernameAndPassword(String username, String password);
 
-    void create(User user);
+    Optional<User> create(User user);
 
-    void update(User user);
+    Optional<User> update(User user);
 }
