@@ -10,15 +10,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource("classpath:connection.properties")
+@PropertySource("classpath:db.properties")
 @EnableTransactionManagement
 public class JdbcConfig {
 
     @Bean
     public DataSource ds(@Value("${jdbc.driver}") String driver,
-                         @Value("${datasource.url}") String url,
-                         @Value("${datasource.username}") String username,
-                         @Value("${datasource.password}") String password) {
+                         @Value("${jdbc.url}") String url,
+                         @Value("${jdbc.username}") String username,
+                         @Value("${jdbc.password}") String password) {
         BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName(driver);
         ds.setUrl(url);
