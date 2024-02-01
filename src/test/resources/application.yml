@@ -1,0 +1,21 @@
+server:
+  port: 8088
+file:
+  directory: photos
+spring:
+  main:
+    allow-circular-references: true
+  datasource:
+    url: jdbc:h2:./testdb;MODE=PostgreSQL;CASE_INSENSITIVE_IDENTIFIERS=TRUE;
+    username:
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  liquibase:
+    change-log: classpath:/db/changelog/dbchangelog.xml
+
+datasource:
+  url: ${spring.datasource.url}
+  username: ${spring.datasource.username}
+  password: ${spring.datasource.password}

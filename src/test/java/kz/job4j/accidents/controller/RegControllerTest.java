@@ -1,6 +1,5 @@
 package kz.job4j.accidents.controller;
 
-import kz.job4j.accidents.AccidentsApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,17 +14,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class LoginControllerTest {
+public class RegControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     @WithMockUser
-    public void whenloginPageThenOk() throws Exception {
-        this.mockMvc.perform(get("/login"))
+    public void whenRegPageThenOk() throws Exception {
+        this.mockMvc.perform(get("/reg"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("users/login"));
+                .andExpect(view().name("users/reg"));
     }
 }
