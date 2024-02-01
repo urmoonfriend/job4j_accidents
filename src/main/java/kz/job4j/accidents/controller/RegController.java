@@ -31,6 +31,6 @@ public class RegController {
             errorMessage = "Пользователь с таким именем уже существует";
         }
         model.addAttribute("errorMessage", errorMessage);
-        return "reg";
+        return "users/reg";
     }
 }
