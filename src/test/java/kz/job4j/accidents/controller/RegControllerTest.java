@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional
 @ActiveProfiles("test")
-@TestPropertySource
+@TestPropertySource(value = "application-test.properties")
 public class RegControllerTest {
 
     @Autowired
