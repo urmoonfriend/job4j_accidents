@@ -62,7 +62,6 @@ public class AccidentControllerTest extends EnvConfigTest {
 
     @Test
     @WithMockUser
-    //@Transactional
     public void whenGetByIdThenOk() throws Exception {
         AccidentType type = new AccidentType().setId(1).setName("type");
         Rule rule = new Rule().setId(1).setName("rule");
