@@ -1,5 +1,6 @@
 package kz.job4j.accidents.controller;
 
+import kz.job4j.accidents.EnvConfigTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,9 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-@ActiveProfiles("test")
-@TestPropertySource(value = "application-test.properties")
-public class RegControllerTest {
+public class RegControllerTest  extends EnvConfigTest {
 
     @Autowired
     private MockMvc mockMvc;

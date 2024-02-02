@@ -1,5 +1,6 @@
 package kz.job4j.accidents.controller;
 
+import kz.job4j.accidents.EnvConfigTest;
 import kz.job4j.accidents.model.Accident;
 import kz.job4j.accidents.model.AccidentType;
 import kz.job4j.accidents.model.Rule;
@@ -11,6 +12,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,9 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-@ActiveProfiles("test")
-@TestPropertySource(value = "application-test.properties")
-public class AccidentControllerTest {
+public class AccidentControllerTest extends EnvConfigTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -61,6 +62,7 @@ public class AccidentControllerTest {
 
     @Test
     @WithMockUser
+    //@Transactional
     public void whenGetByIdThenOk() throws Exception {
         AccidentType type = new AccidentType().setId(1).setName("type");
         Rule rule = new Rule().setId(1).setName("rule");
