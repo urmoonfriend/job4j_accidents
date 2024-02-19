@@ -10,6 +10,7 @@
     </parent>
     <groupId>kz.job4j</groupId>
     <artifactId>accidents</artifactId>
+    <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>accidents</name>
     <description>accidents</description>
@@ -19,7 +20,6 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <packaging>war</packaging>
     <profiles>
         <profile>
             <id>test</id>
@@ -40,7 +40,6 @@
             </activation>
         </profile>
     </profiles>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -171,14 +170,6 @@
                 <version>2.22.2</version>
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.1</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
             <plugin>
